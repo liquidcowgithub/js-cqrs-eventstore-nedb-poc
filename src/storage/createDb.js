@@ -14,9 +14,8 @@ function createDb(fileName) {
                 if (err) {
                     console.log(`Replay error: ${eventRecord._id}`)
                     console.error(err)
-                    return
                 }
-                console.log(`Replayed event: ${eventRecord._id} - ${eventRecord.occured} - ${eventRecord.type}`)
+                console.log(`Replayed event: ${eventRecord.occured} - ${eventRecord.type} - ${eventRecord.id}`)
             })
         })
     });

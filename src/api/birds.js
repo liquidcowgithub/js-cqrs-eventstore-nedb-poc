@@ -22,7 +22,7 @@ router.put('/:id', function (req, res, next) {
   const event = {
     type: birds.events.updated,
     id: req.params.id,
-    name: 'greater duck',
+    name: 'greater duck',  //pretend properties came from req.body
     weight: 7
   }
 
@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
   const event = {
     type: birds.events.added,
     id: uuidV4(),
-    name: 'lesser duck',
+    name: 'lesser duck', //pretend properties came from req.body
     weight: 5
   }
 

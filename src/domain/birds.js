@@ -1,3 +1,5 @@
+const uuidV4 = require('uuid/v4');
+
 const events = {
     added: 'BIRD_ADDED',
     deleted: 'BIRD_DELETED',
@@ -15,17 +17,15 @@ function addBird(db, event, callback) {
 }
 
 function updateBird(db, event, callback) {
-    const bird = {
-        id: event.id,
-        name: event.name,
-        weight: event.weight,
-        lastModifiedDateUtc: (new Date(event.occured)).toISOString()
-    }
-    db.birds.update({ id: event.id }, bird, function (updateError) {
-        if (updateError) return callback(updateError)
+    db.birds.findOne({ id: event.id }, function (err, bird) {
+        if (err) return callback(err)
 
-        db.birds.findOne({ id: event.id }, function (err, bird) {
-            callback(err, bird)
+        bird.name = event.name
+        bird.weight = event.weight
+        bird.lastModifiedDateUtc = (new Date(event.occured)).toISOString()
+
+        db.birds.update({ id: event.id }, bird, function (updateError) {
+            callback(updateError, bird)
         })
     })
 }
